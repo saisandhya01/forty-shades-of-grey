@@ -3,8 +3,9 @@ const grid=document.getElementById('grid');
 var seconds2 = document.getElementById('countdown');
 var gon = 0;
 let mode=0;
-let hackermode=document.getElementById('hackermode');
-hackermode.onclick=()=>{
+var bleep=new Audio('sound.mp3');
+let hackerMode=document.getElementById('hacker-mode');
+hackerMode.onclick=()=>{
   mode=1;
   document.body.style.backgroundColor='black';
 }
@@ -24,7 +25,7 @@ let countdown=setInterval(function(){
     grid.style.display='grid';
       clearInterval(countdown);
       document.getElementById('countdown').style.display='none';
-      startgame();
+      startGame();
         }
 },1000); 
 }
@@ -45,68 +46,91 @@ function stopwatch(){
     milliseconds=0;
     seconds1++;
   }
-  document.getElementById('timedata').innerHTML=seconds1 +":" +milliseconds;
+  document.getElementById('time-data').innerHTML=seconds1 +":" +milliseconds;
 }
-function startgame(){
+function startGame(){
   {
     interval=window.setInterval(stopwatch,5);
     game();
     
   }
 }
-function stopgame(){
+function stopGame(){
   
-  document.getElementById('timedata').innerHTML='0.000';
-  if(best.length>0 && seconds1<best[0]){
+  document.getElementById('time-data').innerHTML='0.000';
+  if(best.length>0 && seconds1<best[best.length-1]){
     best.push(seconds1+(milliseconds*0.001));
   }
   else if(best.length===0){
   	best[0]=seconds1+(milliseconds*0.001);
   }
   window.clearInterval(interval);
-  document.getElementById('besttimedata').innerHTML=Math.min(...best);
+  document.getElementById('best-time').innerHTML=Math.min(...best);
   grid.innerHTML='Your time is  '+ seconds1+':'+milliseconds;
   seconds1=0;
   milliseconds=0;
   let button=document.createElement('div');
   button.className='restart';
   button.innerHTML='Restart';
-  button.style.cursor = 'pointer';
-  button.display = 'block';
   grid.appendChild(button);
 
 button.onclick=()=>{
-  startgame();
+  startGame();
 };
-initialCounter=21;
+if(mode===1){
+  let levelButton=document.createElement('div');
+  levelButton.className='level';
+  levelButton.innerHTML='Next level';
+  grid.appendChild(levelButton);
+  console.log(level);
+  levelButton.onclick=()=>{
+    
+    startGame();
+    level++;
+    console.log(level);
+  };
 }
+  
+initialCounter=21;
+};
 
 function changeText(element){
   
   if(initialCounter-element.innerHTML===20 && initialCounter<=40){
-    if(mode===1){
-      element.style.backgroundColor='hsl(260,5%,'+(100-(element.innerHTML*2))+'%)';
-    }
-  element.innerHTML=initialCounter;
-  initialCounter++;
-
-  
-  console.log(initialCounter);
-  console.log(element.innerHTML)
+     element.innerHTML=initialCounter;
+     initialCounter++;
+     console.log(initialCounter);
+     console.log(element.innerHTML)
   }
   else if(initialCounter-element.innerHTML===20 && initialCounter>40){
-    if(mode===1){
-      element.style.backgroundColor='hsl(260,5%,'+(100-(element.innerHTML*2))+'%)';
-    }
     element.innerHTML=' ';
   initialCounter++;
   }
   if(initialCounter===61){
-    stopgame();
+    stopGame();
   } 
-    
-  
 };
+let level=0;
+function changeTextHack(element){
+  if(initialCounter-element.innerHTML===20 && initialCounter<=(40+(20*level))){
+    element.style.backgroundColor='hsl(260,5%,'+(100-(element.innerHTML))+'%)';
+    bleep.play();
+    element.innerHTML=initialCounter;
+    initialCounter++;
+  }
+  else if(initialCounter-element.innerHTML===20 && initialCounter>(40+(20*level))){
+    element.style.backgroundColor='hsl(260,5%,'+(100-(element.innerHTML))+'%)';
+    bleep.play();
+    element.innerHTML=' ';
+    initialCounter++;
+
+  }
+  if(initialCounter===(61+(20*level))){
+    stopGame();
+  }
+};
+  
+
 function shuffle(){
   let a=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
   let i=a.length,k,t;
@@ -128,6 +152,11 @@ function game(){
     box.className='box';
     box.innerHTML=arr[i];
     grid.appendChild(box);
-    box.onclick=() =>{changeText(box)};
+    if(mode===1){
+      box.onclick=() =>{changeTextHack(box)};
+    }
+    else{
+      box.onclick=() =>{changeText(box)};
+    }
   }
 }

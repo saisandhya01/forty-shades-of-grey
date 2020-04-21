@@ -1,36 +1,43 @@
-html{
+
+body{
   background-color: rgb(50,168,158);
 color:green;
+width: 100%;
 }
-#grid{
-  display: grid;
-  grid-template-columns: auto auto auto auto auto;
-border: 2px solid grey;
-border-radius: 10px;
-position: absolute;
-text-align: center;
-  width:305px;
-  height: 240px;
-  left: 50%;
-  top: 50%;
-  margin-left: -150px;
-  font-size: 35px;
-
-}
-.box{
- background-color:black;
-
-border: 1px solid black;
-border-radius: 5px;
-  font-weight: bold;
-  padding-top:5px;
-  text-align: center;
-  box-sizing: border-box;
-  width: 50px;
-  height: 50px;
-  margin: 5px 4px 5px 7px;
-  cursor: pointer;
-}
+@media screen and (min-width: 200px){
+  #grid{
+      display: grid;
+      grid-template-columns: auto auto auto auto auto;
+      align-items: center;
+      justify-items: center;
+      position: absolute;
+      top:50%;
+      left: 50%;
+      margin-right:-50%;
+      transform: translate(-50%,-50%);
+      width: 40%;
+      height: 40%;
+      border: 2px solid green;
+      border-radius: 5px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+  }
+  .box{
+      background-color: grey;
+      border-radius: 5px;
+      font-weight: bold;
+      color: green;
+      padding-top:10%;
+      height: 88%;
+      width: 90%;
+      text-align: center;
+      padding-top: 5%;
+      box-sizing: border-box;
+      cursor: pointer;
+      font-size: 35px;
+  }
+  }
+  
 #countdown{
 text-align: center;
 font-size: 100px;
@@ -52,7 +59,7 @@ width: 50px;
 height: 50px;
 margin-right:80px;
 }
-.besttime{
+.best-time{
 display: inline-block;
 
 margin-right: 80px;
@@ -60,27 +67,39 @@ margin-right: 80px;
 #times{
 color: white;
 }
-#newgame{
+#new-game{
 display: inline-block;
-width: 30%;
+
 cursor: pointer;
+font-weight: bold;
+font-size: 25px;
 
 }
-#hackermode{
+#hacker-mode{
   display: inline-block;
   width: 20%;
   cursor: pointer;
+  margin-left: 20px;
 }
 .order{
 display: inline-block;
 width:50%;
 margin-right: 50px;
+
 }
 .restart{
   color: green;
   text-align: center;
   font-size: 35px;
+  display: block;
+  cursor: pointer;
+}
+.level{
+  cursor: pointer;
+  display: block;
+  color:green;
   
+  font-size: 20px;
 }
 
   #st{

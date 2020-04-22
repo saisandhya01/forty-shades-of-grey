@@ -1,6 +1,6 @@
 
 body{
-  background-color: rgb(50,168,158);
+  background-color: black;
 color:green;
 width: 100%;
 }
@@ -28,6 +28,9 @@ width: 100%;
       font-weight: bold;
       color: green;
       padding-top:10%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 88%;
       width: 90%;
       text-align: center;
@@ -94,13 +97,14 @@ margin-right: 50px;
   display: block;
   cursor: pointer;
 }
-.level{
-  cursor: pointer;
-  display: block;
-  color:green;
-  
-  font-size: 20px;
-}
+  .level{
+    cursor: pointer;
+    display: block;
+    font-size: 35px;
+  }
+  .difficulty{
+    cursor: pointer;
+  }
 
   #st{
     text-align: center;

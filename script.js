@@ -73,13 +73,15 @@ function stopGame(){
       localStorage.clickcount = 0.000;
     }
     var t=parseFloat(seconds1+'.'+milliseconds);
+
     localStorage.clickcount=t;  
       bestScores[level].push(localStorage.clickcount);
       bestScores[level].sort();
       bestScores[level]=bestScores[level].splice(0,5);
-      localStorage.setItem("bestScores",JSON.stringify(bestScores));
-  
-      document.getElementById('best-time').innerHTML=localStorage.getItem("bestScores");
+      localStorage.setItem('bestScores'+level,JSON.stringify(bestScores[level]));
+      document.getElementById('best-time').innerHTML=JSON.parse(localStorage.getItem('bestScores'+level))
+      console.log(localStorage.getItem('bestScores'+level))
+      console.log(bestScores[level])
     }
   grid.innerHTML='Your time is  '+ seconds1+':'+milliseconds;
   seconds1=0;
@@ -138,14 +140,60 @@ function shuffle(){
 function game(){
   let arr=shuffle();
   grid.innerHTML='';
-  
-  for(let i=0;i<20;i++){
-    let box=document.createElement('div');
-    box.id='el'+(i+1);
-    box.className='box';
-    box.innerHTML=arr[i];
-    grid.appendChild(box);
-     box.onclick=() =>{changeText(box)};
-    
+  let k=0;
+  for(let i=0;i<4;i++){
+    let row=document.createElement('div');
+    row.className='row';
+    grid.appendChild(row);
+    k=5*i;
+    for(let j=0;j<10;j++){
+      let box=document.createElement('span');
+      box.className='box';
+      row.appendChild(box);
+      if(j>=0 && j<=4){
+        box.innerHTML=arr[k];
+        k=k+1;
+      }
+      else if(j>=5 && j<=9){
+        box.innerHTML=arr[k-5];
+        k=k+1;
+      }
+      box.onclick=()=>{changeText(box)};
+      if(i%2===0){
+        box.keyframes=[
+          {
+            transform: 'translateX(0%)'
+          },
+          {
+            transform: 'translateX(-100%)'
+          }
+        ]
+        box.animProps={
+          duration: 5000,
+          easing: "linear",
+          iterations: Infinity
+        }
+        var animationPlayer = box.animate(box.keyframes, box.animProps);
+        
+      }
+      else{
+        box.keyframes=[
+          {
+            transform: 'translateX(0%)'
+          },{
+            transform: 'translateX(100%)'
+          }
+        ]
+        box.animProps={
+          duration: 3000,
+          easing: "linear",
+          iterations: Infinity
+        }
+        var animationPlayer = box.animate(box.keyframes, box.animProps);
+        
+
+
+      }
+    }
   }
 }

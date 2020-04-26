@@ -6,6 +6,19 @@ if(localStorage.clickcount){
 else{
  document.getElementById('best-time').innerHTML="0.000";
 }
+let easy=document.getElementById('easy');
+let medium=document.getElementById('medium');
+let hard=document.getElementById('hard');
+easy.onclick=()=>{
+  level=0;
+}
+medium.onclick=()=>{
+  level=1;
+  console.log(level);
+}
+hard.onclick=()=>{
+  level=2;
+}
 
 var bestScores=[[],[],[]];  
 let seconds=document.getElementById('countdown').innerHTML;
@@ -146,10 +159,17 @@ function game(){
     row.className='row';
     grid.appendChild(row);
     k=5*i;
+    if(i%2===0){
+      row.style.justifyContent='flex-start';
+    }
+    else{
+      row.style.justifyContent='flex-end';
+    }
     for(let j=0;j<10;j++){
       let box=document.createElement('span');
       box.className='box';
       row.appendChild(box);
+      
       if(j>=0 && j<=4){
         box.innerHTML=arr[k];
         k=k+1;
@@ -194,6 +214,8 @@ function game(){
 
 
       }
+ 
+      
     }
   }
 }

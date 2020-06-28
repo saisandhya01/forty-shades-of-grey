@@ -3,9 +3,7 @@
     <head>
         <title>grid game</title>
         <link href="./style.css" type="text/css" rel="stylesheet">
-      
-        
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div id="times">
@@ -23,15 +21,13 @@
             <div class="order">
                 <p>Click <strong>the numbers</strong> as quickly as you can!</p>
             </div>
-            <div id="new-game" onclick="sgame()">
-                <p>New Game</p>
-            </div>
-            <div class="difficulty">
-                <p id="easy">Easy</p>
-                <p id="medium">Medium</p>
-                <p id="hard">Hard</p>
-            </div>
+            <div class="game-levels">
+            <span id="new-game" onclick="sgame()">New Game</span>
+                <span id="easy">Easy</span>
+                <span id="medium">Medium</span>
+                <span id="hard">Hard</span>
             
+            </div>
         </div>
         <p id="countdown">3</p>
         <div id="st">Click New Game to Start!</div>
